@@ -1,0 +1,185 @@
+/* {
+    background-color: white;
+    color: black;
+} */
+#bodyContainer {
+    background-color: aquamarine;
+    height: 92.85vh;
+}
+
+#getStarted {
+    background-color: red;
+    color: white;
+}
+
+
+/* Start Dummy Courses */
+
+/* Course Card Styling */
+.course-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.course-card:hover {
+    transform: scale(1.05);
+}
+
+/* Image Container */
+.course-img-container {
+    width: 100%;
+    height: 200px;
+    /* Fixed Height */
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.course-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures images fit without distortion */
+}
+
+/* Course Title */
+.course-card h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 15px 0 5px 0;
+}
+
+/* Course Details */
+.course-card p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* Enroll Button */
+.btn-enroll {
+    display: inline-block;
+    background: #ff6666;
+    /* Light Red */
+    color: white;
+    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-enroll:hover {
+    background: #ff4d4d;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .course-card {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+}
+
+
+/* End Dummy Courses */
+
+
+/* Start Course Detail */
+.hero-section {
+    /* background: linear-gradient(to right, #1a1a1a, #000000); */
+    padding: 3rem 0;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+}
+
+/* Course Image */
+.course-img {
+    max-height: 350px;
+    object-fit: cover;
+    border: 4px solid #17a2b8;
+}
+
+/* Course Info */
+.list-group-item {
+    border: none;
+    font-size: 1.1rem;
+}
+
+.list-group-item i {
+    margin-right: 8px;
+}
+
+/* Buttons */
+.btn-hover {
+    transition: 0.3s ease-in-out;
+}
+
+.btn-hover:hover {
+    transform: scale(1.05);
+}
+
+/* Table Styling */
+.table-dark th {
+    font-size: 1.1rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #252525;
+}
+
+/* End Course Detail */
+
+
+/* Start All Courese */
+/* General Course Section Styling */
+.CourseContainer {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 100%;
+}
+
+/* Course Heading */
+.coursesHeading {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* View All Button Styling */
+#ViewAllCourses {
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+#ViewAllCourses:hover {
+    background: #0056b3;
+    color: #fff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .coursesHeading {
+        font-size: 1.5rem;
+    }
+
+    #ViewAllCourses {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+}
+
+/* End All Courese */
