@@ -1,7 +1,29 @@
-/* {
-    background-color: white;
-    color: black;
-} */
+/* -----------------------------Start Loading Screen------------------------------------- */
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+
+
+/* -----------------------------End Loading Screen------------------------------------- */
+
+/* ------x----------------------x----------------------x------------------x----------------------x----------------- */
 #bodyContainer {
     background-color: aquamarine;
     height: 92.85vh;
@@ -183,3 +205,73 @@
 }
 
 /* End All Courese */
+
+
+
+
+/*------------------------------Start Student SignUp Form--------------------------------------*/
+/* 🔹 Form Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animated-form {
+    animation: fadeIn 0.5s ease-in-out;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🔹 Input Field Effects */
+.input-animated {
+    transition: all 0.3s ease-in-out;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.input-animated:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.5);
+    transform: scale(1.02);
+}
+
+/* 🔹 Button Effects */
+.animated-btn {
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.animated-btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary:hover {
+    background-color: #6c757d;
+}
+
+/* 🔹 Error Message Animation */
+.error-msg {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.error-msg.show {
+    opacity: 1;
+}
+
+
+/*------------------------------End Student SignUp Form--------------------------------------*/

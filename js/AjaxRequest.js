@@ -2,7 +2,7 @@ $("#StudentSignUpEmail").on("blur", function () {
     var email = $("#StudentSignUpEmail");
     var mailMsg = $("#mailMsg");
     $.ajax({
-        url: "Student/addStudent.php",
+        url: "Student/GetStudentSignUp.php",
         method: "POST",
         data: {  // Make sure the parameters are correct
             checkMail: "CheckMail", // Checking the email existence
@@ -16,28 +16,28 @@ $("#StudentSignUpEmail").on("blur", function () {
                 $("#SignUpSubmitBtn").prop("disabled", true);
                 return false;
             }
-            else{
+            else {
                 $("#SignUpSubmitBtn").prop("disabled", false);
                 $('#mailMsg').html("");
             }
         },
-        error: function() {
+        error: function () {
             console.log("Error in AJAX request");
         }
     });
 });
 
-
+// ---------------------Start Student SignUp Code---------------------------------
 $("#SignUpSubmitBtn").click(function () {
     var name = $("#StudentSignUpName");
     var email = $("#StudentSignUpEmail");
-    var alternateEmail = $("#AlternateEmail");
+    var gaurdianEmail = $("#GaurdianEmail");
     var password = $("#StudentSignUpPassword");
     var confirmPassword = $("#StudentCnfPassword");
 
     var nameMsg = $("#nameMsg");
     var mailMsg = $("#mailMsg");
-    var alterMailMsg = $("#alterMailMsg");
+    var gaurdianMailMsg = $("#gaurdianMailMsg");
     var passMsg = $("#passMsg");
     var cnfPassMsg = $("#cnfPassMsg");
 
@@ -57,7 +57,7 @@ $("#SignUpSubmitBtn").click(function () {
     // Apply function to all input fields
     hideErrorOnInput(name, nameMsg);
     hideErrorOnInput(email, mailMsg);
-    hideErrorOnInput(alternateEmail, alterMailMsg);
+    hideErrorOnInput(gaurdianEmail, gaurdianMailMsg);
     hideErrorOnInput(password, passMsg);
     hideErrorOnInput(confirmPassword, cnfPassMsg);
 
@@ -70,9 +70,19 @@ $("#SignUpSubmitBtn").click(function () {
         mailMsg.text('Please Enter Email!').show();
         email.focus();
         return false;
-    } else if (!emailPattern.test(alternateEmail.val())) {
-        alterMailMsg.text('Please Enter Alternate Email!').show();
-        alternateEmail.focus();
+    } else if (!emailPattern.test(email.val())) {
+        mailMsg.text('Please Enter a Valid Email!').show();
+        email.focus();
+        return false;
+    }
+    else if (!gaurdianEmail.val().trim()) {
+        gaurdianMailMsg.text('Please Enter Gaurdian Email!').show();
+        gaurdianEmail.focus();
+        return false;
+    }
+    else if (!emailPattern.test(gaurdianEmail.val())) {
+        gaurdianMailMsg.text('Please Enter Valid Email!').show();
+        gaurdianEmail.focus();
         return false;
     } else if (!password.val()) {
         passMsg.text('Password Can\'t be empty!').show();
@@ -82,41 +92,37 @@ $("#SignUpSubmitBtn").click(function () {
         cnfPassMsg.text('Confirm Password Can\'t be empty!').show();
         confirmPassword.focus();
         return false;
-    } else if (!emailPattern.test(email.val())) {
-        mailMsg.text('Please Enter a Valid Email!').show();
-        email.focus();
-        return false;
     }
 
     // Check Email match
-    if (email.val() === alternateEmail.val()) {
-        alterMailMsg.text('Email must be different!').show();
-        alternateEmail.focus();
+    else if (email.val() === gaurdianEmail.val()) {
+        gaurdianMailMsg.text('Email must be different!').show();
+        gaurdianEmail.focus();
         return false;
     }
 
     // Validate password length
-    if (password.val().length < 6) {
+    else if (password.val().length < 6) {
         passMsg.text('Password length must be at least 6 characters').show();
         password.focus();
         return false;
     }
 
     // Check if passwords match
-    if (password.val() !== confirmPassword.val()) {
+    else if (password.val() !== confirmPassword.val()) {
         cnfPassMsg.text('Passwords do not match!').show();
         confirmPassword.focus();
         return false;
     } else {
         // Send AJAX request
         $.ajax({
-            url: 'Student/addStudent.php',
+            url: 'Student/GetStudentSignUp.php',
             method: 'POST',
             data: {
                 stuSignUp: "SignUp",
                 stuName: name.val(),
                 stuEmail: email.val(),
-                AltEmail: alternateEmail.val(),
+                AltEmail: gaurdianEmail.val(),
                 stuPass: password.val()
             },
             // success: function(response) {
@@ -130,8 +136,121 @@ $("#SignUpSubmitBtn").click(function () {
     $("#successMsg").text("Registration Successful");
     $('#nameMsg').html("");
     $('#mailMsg').html("");
-    $('#alterMailMsg').html("");
+    $('#gaurdianMailMsg').html("");
     $('#passMsg').html("");
     $('#cnfPassMsg').html("");
     $("#SignUpForm").trigger("reset");
 });
+
+
+// ---------------------------------End Student SignUp Code--------------------------------
+
+// ----------x------------------------x--------------------------x--------------------------x-------------------------x--------------------
+
+// ---------------------------------Start Student Login Code--------------------------------
+
+
+$("#StudentLoginBtn").click(function () {
+    let stuLoginEmail = $('#StudentLoginEmail').val();
+    let stuLoginPass = $('#StudentLoginPassword').val();
+
+    let StudentLoginFailedMsg = $('#StudentLoginFailedMsg');
+    let StudentLoginSuccessMsg = $('#StudentLoginSuccessMsg');
+
+    $.ajax({
+        url: "Student/GetStudentLogin.php",
+        method: "POST",
+        data: {
+            checkLogin: "checkLogin",
+            stuLoginEmail: stuLoginEmail,
+            stuLoginPass: stuLoginPass
+        },
+        success: function (response) {
+            console.log("Row", response);
+
+            if (response == 1) {
+                // Show success message
+                $("#StudentLoginSuccessMsg").text("Login Success").fadeIn();
+
+                // Show a loading screen for 2 seconds
+                $("body").append(`
+                    <div id="loading-screen" class="loading-overlay">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden"></span>
+                        </div>
+                        <p>Redirecting...</p>
+                    </div>
+                `);
+
+                setTimeout(function () {
+                    // Remove loading screen and navigate to dashboard
+                    $("#loading-screen").fadeOut("slow", function () {
+                        window.location.href = "/EduTrack/Dashboards/StudentDashBoard.php"; // Change URL as needed
+                    });
+                }, 550);
+            } else {
+                $("#StudentLoginFailedMsg").text("Login Failed").fadeIn();
+            }
+        }
+
+    })
+})
+
+
+// ---------------------------------End Student Login Code--------------------------------
+
+
+// ------x----------------x--------------------x--------------------x-------------------x------------------
+
+
+// ---------------------------------Start Admin Login Code--------------------------------
+$('#AdminLoginBtn').click(function () {
+    // Get email and password values from the form
+    let AdminLoginEmail = $('#AdminLoginEmail').val();
+    let AdminPassword = $('#AdminPassword').val();
+
+    // Predefined stored email and password for comparison
+    let storedEmail = "aman101024@gmail.com";
+    let storedPass = "20feb2024";
+
+    // Select the success and failure message elements
+    let AdminLoginSuccessMsg = $('#AdminLoginSuccessMsg');
+    let AdminLoginFailedMsg = $('#AdminLoginFailedMsg');
+
+    // Log the values for debugging
+    console.log("Admin Login Email:", AdminLoginEmail);
+    console.log("Admin Password:", AdminPassword);
+    console.log("Stored Email:", storedEmail);
+    console.log("Stored Password:", storedPass);
+
+    // Check if the entered credentials match the stored ones
+    if (AdminLoginEmail === storedEmail && AdminPassword === storedPass) {
+        // Show success message
+        AdminLoginSuccessMsg.text("Login Success").fadeIn();
+
+        // Append loading screen to body
+        $("body").append(`
+            <div id="loading-screen" class="loading-overlay">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p>Redirecting...</p>
+            </div>
+        `);
+
+        // Wait for 2 seconds before redirecting
+        setTimeout(function () {
+            // Hide the loading screen and redirect to the dashboard
+            $("#loading-screen").fadeOut("slow", function () {
+                window.location.href = "/EduTrack/Dashboards/AdminDashBoard.php"; // Change URL if needed
+            });
+        }, 2000); // 2 seconds
+    } else {
+        // Show failed login message
+        AdminLoginFailedMsg.text("Login Failed ❌").fadeIn();
+    }
+});
+;
+
+
+// ---------------------------------Start Admin Login Code--------------------------------
