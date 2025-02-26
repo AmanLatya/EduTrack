@@ -9,7 +9,8 @@
 
 
   <!--Student Ajax Call Request -->
-  <script src="/EduTrack/js/AjaxRequest.js"></script>
+  <!-- <script src="/EduTrack/js/AjaxRequest.js"></script> -->
+   <script src="/EduTrack/js/AjaxRequest.js"></script>
 
   <!-- Custom JS -->
   <script src="/EduTrack/js/EduScript.js"></script>

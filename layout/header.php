@@ -40,41 +40,9 @@
 <!-- End Nav Bar -->
 
 <!-- Start Login Modal -->
-<section>
-  <div class="modal fade" id="StudentLoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="StudentLoginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-4 fw-bold" id="StudentLoginModalLabel">Student Login</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Login form -->
-          <?php include('./Forms/StudentLogin.php') ?>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<?php include('./Forms/StudentLogin.php') ?>
 <!-- End Login Modal -->
 
 <!-- Start SignUp Modal -->
-<section>
-  <div class="modal fade" id="StudentSignUpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="StudentSignUpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-4 fw-bold" id="StudentSignUpModalLabel">Student Sign Up</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- SignUp form -->
-          <?php include('./Forms/StudentSignUp.php') ?>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<?php include('./Forms/StudentSignUp.php') ?>
 <!-- End SignUp Modal -->

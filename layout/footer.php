@@ -11,21 +11,5 @@
   </footer>
   <!-- End footer -->
   <!-- Start Admin Modal -->
-  <section>
-    <div class="modal fade" id="AdminLoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="AdminLoginModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-4 fw-bold" id="AdminLoginModalLabel">Admin Login</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <!-- AdminLogin form -->
-              <?php include('./Forms/AdminLogin.php') ?>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <?php include('./Forms/AdminLogin.php') ?>
   <!-- End Admin Modal -->
