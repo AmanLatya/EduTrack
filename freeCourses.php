@@ -22,7 +22,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="course-card shadow-lg p-3">
                 <div class="course-img-container">
-                    <img src="https://builtin.com/sites/www.builtin.com/files/2024-10/cybersecurity.png" alt="Cybersecurity Course">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7GmlSfU8ypplSLMnY4IMEkQyGg1AX1-O1kw&s" alt="Cybersecurity Course">
                 </div>
                 <h4><i class="fas fa-lock"></i> Cybersecurity</h4>
                 <p><i class="fas fa-book"></i> Guided by Prof. Johnson</p>

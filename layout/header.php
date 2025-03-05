@@ -1,3 +1,8 @@
+<?php 
+if(!isset($_SESSION)){
+  session_start();
+}
+?>
 <header class="sticky-top">
   <nav class="navbar navbar-expand-sm shadow bg-white px-3">
     <div class="container-fluid">
@@ -15,21 +20,53 @@
       <!-- Navbar Links (Ensure the ID matches the toggle button) -->
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav text-center d-flex justify-content-center align-items-center">
-          <li class="nav-item fs-5 px-2">
-            <a class="nav-link" href="/EduTrack/allCourses.php">
-              <i class="fas fa-book-open"></i> Courses
-            </a>
-          </li>
-          <li class="nav-item fs-5 p-2">
-            <a class="btn btn-outline-info px-3 py-1" href="#" data-bs-toggle="modal" data-bs-target="#StudentSignUpModal">
-              <i class="fas fa-user-plus"></i> Sign Up
-            </a>
-          </li>
-          <li class="nav-item fs-5 p-2">
-            <a class="btn btn-info px-3 py-1 text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#StudentLoginModal">
-              <i class="fas fa-sign-in-alt"></i> Login
-            </a>
-          </li>
+          <?php
+          if (isset($_SESSION['is_AdminLogin'])) {
+            echo '
+              <li class="nav-item fs-5 px-2">
+              <a class="nav-link" href="./Admin">
+                <i class="fas fa-book-open"></i> Admin Dashboard
+              </a>
+              </li>
+            <li class="nav-item fs-5 p-2">
+              <a class="btn btn-info px-3 py-1 text-dark fw-bold" href="./Logout.php">
+                <i class="fas fa-sign-in-alt"></i> Logout
+              </a>
+            </li>
+            ';
+          } else if (isset($_SESSION['is_stuLogin'])) {
+            echo '
+                <li class="nav-item fs-5 px-2">
+                <a class="nav-link" href="/EduTrack/Student/StudentDashBoard.php">
+                  <i class="fas fa-book-open"></i> My Profile
+                </a>
+                </li>
+                <li class="nav-item fs-5 p-2">
+                    <a class="btn btn-info px-3 py-1 text-dark fw-bold" href="./Logout.php">
+                      <i class="fas fa-sign-in-alt"></i> Logout
+                    </a>
+                </li>
+              ';
+          } else if (!isset($_SESSION['is_AdminLogin']) && !isset($_SESSION['is_stuLogin'])) {
+            echo '
+                <li class="nav-item fs-5 px-2">
+                  <a class="nav-link" href="/EduTrack/allCourses.php">
+                    <i class="fas fa-book-open"></i> Courses
+                  </a>
+                </li>
+                <li class="nav-item fs-5 p-2">
+                  <a class="btn btn-outline-info px-3 py-1" href="#" data-bs-toggle="modal" data-bs-target="#StudentSignUpModal">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                  </a>
+                </li>
+                <li class="nav-item fs-5 p-2">
+                  <a class="btn btn-info px-3 py-1 text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#StudentLoginModal">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                  </a>
+                </li>
+              ';
+          }
+          ?>
         </ul>
       </div>
     </div>
@@ -40,7 +77,7 @@
 <!-- End Nav Bar -->
 
 <!-- Start Login Modal -->
-<?php include('./Forms/StudentLogin.php') ?>
+<?php include('./') ?>
 <!-- End Login Modal -->
 
 <!-- Start SignUp Modal -->

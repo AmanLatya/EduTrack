@@ -1,8 +1,10 @@
+// -----------------------------Same User Can't Register again--------------------------------
+
 $("#StudentSignUpEmail").on("blur", function () {
     var email = $("#StudentSignUpEmail");
     var mailMsg = $("#mailMsg");
     $.ajax({
-        url: "Student/GetStudentSignUp.php",
+        url: "Student/Authentication.php",
         method: "POST",
         data: {  // Make sure the parameters are correct
             checkMail: "CheckMail", // Checking the email existence
@@ -27,7 +29,11 @@ $("#StudentSignUpEmail").on("blur", function () {
     });
 });
 
-// ---------------------Start Student SignUp Code---------------------------------
+// -----------------------------Same User Can't Register again--------------------------------
+
+// ----------x------------------------x--------------------------x--------------------------x-------------------------x--------------------
+
+// ---------------------------------Start Student SignUp Code---------------------------------
 $("#SignUpSubmitBtn").click(function () {
     var name = $("#StudentSignUpName");
     var email = $("#StudentSignUpEmail");
@@ -116,7 +122,7 @@ $("#SignUpSubmitBtn").click(function () {
     } else {
         // Send AJAX request
         $.ajax({
-            url: 'Student/GetStudentSignUp.php',
+            url: 'Student/Authentication.php',
             method: 'POST',
             data: {
                 stuSignUp: "SignUp",
@@ -155,10 +161,9 @@ $("#StudentLoginBtn").click(function () {
     let stuLoginPass = $('#StudentLoginPassword').val();
 
     let StudentLoginFailedMsg = $('#StudentLoginFailedMsg');
-    let StudentLoginSuccessMsg = $('#StudentLoginSuccessMsg');
 
     $.ajax({
-        url: "Student/GetStudentLogin.php",
+        url: "Student/Authentication.php",
         method: "POST",
         data: {
             checkLogin: "checkLogin",
@@ -170,7 +175,7 @@ $("#StudentLoginBtn").click(function () {
 
             if (response == 1) {
                 // Show success message
-                // $("#StudentLoginSuccessMsg").text("Login Success").fadeIn();
+                $("#StudentLoginFailedMsg").text("").fadeIn();
 
                 // Show a loading screen for 2 seconds
                 $("body").append(`
@@ -185,7 +190,8 @@ $("#StudentLoginBtn").click(function () {
                 setTimeout(function () {
                     // Remove loading screen and navigate to dashboard
                     $("#loading-screen").fadeOut("slow", function () {
-                        window.location.href = "/EduTrack/Dashboards/StudentDashBoard.php"; // Change URL as needed
+                        window.location.href = "/EduTrack/"; // Change URL as needed
+                        // window.location.href = "/EduTrack/Dashboards/StudentDashBoard.php"; // Change URL as needed
                     });
                 }, 550);
             } else {
@@ -202,55 +208,3 @@ $("#StudentLoginBtn").click(function () {
 
 // ------x----------------x--------------------x--------------------x-------------------x------------------
 
-
-// ---------------------------------Start Admin Login Code--------------------------------
-$('#AdminLoginBtn').click(function () {
-    // Get email and password values from the form
-    let AdminLoginEmail = $('#AdminLoginEmail').val();
-    let AdminPassword = $('#AdminPassword').val();
-
-    // Predefined stored email and password for comparison
-    let storedEmail = "aman101024@gmail.com";
-    let storedPass = "20feb2024";
-
-    // Select the success and failure message elements
-    let AdminLoginSuccessMsg = $('#AdminLoginSuccessMsg');
-    let AdminLoginFailedMsg = $('#AdminLoginFailedMsg');
-
-    // Log the values for debugging
-    console.log("Admin Login Email:", AdminLoginEmail);
-    console.log("Admin Password:", AdminPassword);
-    console.log("Stored Email:", storedEmail);
-    console.log("Stored Password:", storedPass);
-
-    // Check if the entered credentials match the stored ones
-    if (AdminLoginEmail === storedEmail && AdminPassword === storedPass) {
-        // Show success message
-        AdminLoginSuccessMsg.text("Login Success").fadeIn();
-
-        // Append loading screen to body
-        $("body").append(`
-            <div id="loading-screen" class="loading-overlay">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <p>Redirecting...</p>
-            </div>
-        `);
-
-        // Wait for 2 seconds before redirecting
-        setTimeout(function () {
-            // Hide the loading screen and redirect to the dashboard
-            $("#loading-screen").fadeOut("slow", function () {
-                window.location.href = "/EduTrack/Dashboards/AdminDashBoard.php"; // Change URL if needed
-            });
-        }, 2000); // 2 seconds
-    } else {
-        // Show failed login message
-        AdminLoginFailedMsg.text("Login Failed ❌").fadeIn();
-    }
-});
-;
-
-
-// ---------------------------------Start Admin Login Code--------------------------------

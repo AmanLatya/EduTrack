@@ -1,18 +1,3 @@
-// let viewLess = document.getElementById("viewLess");
-// viewLess.style.display = "none";
-// document.getElementById("all-courses").addEventListener("click", function () {
-//     let viewAll = document.getElementById("viewAll");
-//     // let viewLess = document.getElementById("viewLess");
-
-//     if (viewAll.style.display === "none") {
-//         viewAll.style.display = "inline";
-//         viewLess.style.display = "none";
-//     } else {
-//         viewAll.style.display = "none";
-//         viewLess.style.display = "inline";
-//     }
-// });
-
 $(document).ready(function () {
     let $toggleCourse = $("#viewAll");
 
@@ -26,3 +11,38 @@ $(document).ready(function () {
         }
     });
 });
+
+// -----------------------Start Course Detail---------------------------
+function showTab(tabId) {
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.classList.add('d-none');
+    });
+    document.getElementById(tabId).classList.remove('d-none');
+
+    const tabLinks = document.querySelectorAll('.tab-link');
+    tabLinks.forEach(link => {
+        link.classList.remove('active-tab');
+        link.classList.add('text-muted');
+    });
+    event.target.classList.add('active-tab');
+    event.target.classList.remove('text-muted');
+}
+
+// Display the "Description" tab by default
+document.addEventListener('DOMContentLoaded', function() {
+    showTab('description');
+});
+
+// -----------------------End Course Detail---------------------------
+
+
+
+// -----------------------------Start Admin Dashboard--------------------------------
+
+// js
+document.getElementById("sidebarToggle").addEventListener("click", function() {
+    document.getElementById("sidebar").classList.toggle("active");
+});
+
+// -----------------------------End Admin Dashboard--------------------------------

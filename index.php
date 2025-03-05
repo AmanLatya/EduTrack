@@ -29,10 +29,11 @@ include('./layout/header.php')
 <?php include('./freeCourses.php') ?>
 <!-- End Free Courses -->
 
-<!-- Start Free Courses -->
+<!-- Start Contact -->
 <?php include('./contactUs.php') ?>
-<!-- End Free Courses -->
+<!-- End Contact -->
 <br><br>
+
 <!-- Start Footer Courses -->
 <?php include('./layout/footer.php') ?>
 <!-- End Footer Courses -->

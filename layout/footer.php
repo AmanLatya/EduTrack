@@ -3,9 +3,17 @@
     <div class="row p-0 m-0">
       <div class="row p-0 m-0">
         <p>&copy; 2025 | All Rights Reserved</p>
-        <a href="#" class="admin-link" data-bs-toggle="modal" data-bs-target="#AdminLoginModal">
-          <i class="fas fa-user-shield"></i> Admin Login
-        </a>
+
+        <?php
+        // session_start();
+        if (!isset($_SESSION['is_AdminLogin']) && !isset($_SESSION['is_stuLogin'])) {
+          echo '
+          <a href="#" class="admin-link" data-bs-toggle="modal" data-bs-target="#AdminLoginModal">
+            <i class="fas fa-user-shield"></i> Admin Login
+          </a>
+          ';
+        }
+        ?>
       </div>
     </div>
   </footer>
