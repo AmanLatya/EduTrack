@@ -21,7 +21,7 @@ include('./layout/header.php')
       <a href="#free-courses" class="fw-bold p-2 rounded text-decoration-none" id="getStarted">Get Started</a>
     </div>
   </div>
-  <br>`
+  <br>
 </section>
 <!-- End Body -->
 

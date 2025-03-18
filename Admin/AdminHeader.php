@@ -41,7 +41,7 @@ if(!isset($_SESSION['is_AdminLogin'])){
                 <i class="fas fa-user"></i> Admin
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
-                <li><a class="dropdown-item" href="#login">Admin Login</a></li>
+                <li><a class="dropdown-item" href="./ChangePassword.php">Change Password</a></li>
                 <li><a class="dropdown-item" href="../Logout.php">Logout</a></li>
             </ul>
         </div>
@@ -66,6 +66,12 @@ if(!isset($_SESSION['is_AdminLogin'])){
                 <a class="nav-link" href="./Student.php">
                     <i class="fas fa-users"></i>
                     <span>Students</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./lessons.php">
+                    <i class="fas fa-book"></i>
+                    <span>Course Managment</span>
                 </a>
             </li>
             <li class="nav-item">

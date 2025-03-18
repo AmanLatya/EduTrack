@@ -42,6 +42,12 @@ $result = $connection->query($sql);
                             <td>' . $row['Stu_Address'] . '</td>
                             <td>' . $row['Stu_Phone'] . '</td>
                             <td class="d-flex justify-content-center align-items-center">
+                                <form action="editStudent.php" method = "POST">
+                                  <input type="hidden" name="id" value=' . $row["Stu_id"] . ' >
+                                  <button class="btn btn-secondary btn-sm m-1" name="edit" value="edit">
+                                      <i class="fas fa-pen m-1"></i>
+                                 </button>
+                                </form>
                                 <form method="POST">
                                     <input type="hidden" name="id" value=' . $row["Stu_id"] . ' >
                                     <button class="btn btn-secondary btn-sm m-1" name="delete" value="delete">
@@ -54,7 +60,7 @@ $result = $connection->query($sql);
                     </tbody>
                 </table>
             <?php }
-// --------------------------------Delete Course-------------------------------
+            // --------------------------------Delete Student-------------------------------
             if (isset($_REQUEST['delete'])) {
                 $sql = "DELETE FROM student WHERE Stu_id = {$_REQUEST['id']}";
                 if ($connection->query($sql) == TRUE) {
@@ -67,21 +73,15 @@ $result = $connection->query($sql);
         </div>
     </div>
 </div>
-<a href="./AddStudent.php" class="text-decoration-none text-light" >
+
+<!-- -------------------------------------------- Add Student ----------------------------------------------------->
+<a href="./AddStudent.php" class="text-decoration-none text-light">
     <button class="btn btn-danger" id="add-course-btn">
         <i class="fas fa-plus"></i>
     </button>
 </a>
 
-<!-- Footer -->
-<footer class="bg-dark text-white p-3 text-center">
-    <p>&copy; 2023 EDUTRACK. All rights reserved.</p>
-</footer>
-
-
 
 <!-- Footer Links -->
 <?php include '../layout/htmlFooterLinks.php' ?>
-
-
-
+<?php include '../layout/adminFooter.php' ?>

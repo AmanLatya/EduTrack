@@ -17,7 +17,7 @@ $('#AdminLoginBtn').click(function () {
         },
 
         success: function (response) {
-            console.log("row", response);
+            // console.log("row", response);
             if (response == 1) {
                 AdminLoginSuccessMsg.text("Login Success").fadeIn();
                 // Append loading screen to body
@@ -34,59 +34,15 @@ $('#AdminLoginBtn').click(function () {
                 setTimeout(function () {
                     // Hide the loading screen and redirect to the dashboard
                     $("#loading-screen").fadeOut("slow", function () {
-                        window.location.href = "./Admin"; // Change URL if needed
-                        // window.location.href = "/EduTrack/Dashboards/AdminDashBoard.php"; // Change URL if needed
+                        window.location.href = "./Admin";
                     });
-                }, 1200); // 2 seconds
+                }, 1200);
             }
             else {
                 AdminLoginFailedMsg.text("Invalid Email or Password").fadeIn();
             }
         }
     })
-
-    // // Predefined stored email and password for comparison
-    // let storedEmail = "aman101024@gmail.com";
-    // let storedPass = "20feb2024";
-
-    // // Select the success and failure message elements
-    // let AdminLoginSuccessMsg = $('#AdminLoginSuccessMsg');
-    // let AdminLoginFailedMsg = $('#AdminLoginFailedMsg');
-
-    // // Log the values for debugging
-    // console.log("Admin Login Email:", AdminLoginEmail);
-    // console.log("Admin Password:", AdminPassword);
-    // console.log("Stored Email:", storedEmail);
-    // console.log("Stored Password:", storedPass);
-
-    // // Check if the entered credentials match the stored ones
-    // if (AdminLoginEmail === storedEmail && AdminPassword === storedPass) {
-    //     // Show success message
-    //     AdminLoginSuccessMsg.text("Login Success").fadeIn();
-
-    //     // Append loading screen to body
-    //     $("body").append(`
-    //         <div id="loading-screen" class="loading-overlay">
-    //             <div class="spinner-border text-primary" role="status">
-    //                 <span class="visually-hidden">Loading...</span>
-    //             </div>
-    //             <p>Redirecting...</p>
-    //         </div>
-    //     `);
-
-    //     // Wait for 2 seconds before redirecting
-    //     setTimeout(function () {
-    //         // Hide the loading screen and redirect to the dashboard
-    //         $("#loading-screen").fadeOut("slow", function () {
-    //             window.location.href = "/EduTrack/Dashboards/AdminDashBoard.php"; // Change URL if needed
-    //         });
-    //     }, 2000); // 2 seconds
-    // } else {
-    //     // Show failed login message
-    //     AdminLoginFailedMsg.text("Login Failed ❌").fadeIn();
-    // }
-
-
 
 });
 ;
@@ -191,3 +147,41 @@ $('#AdminLoginBtn').click(function () {
 // })
 
 // ---------------------------------End Add Course Code--------------------------------
+
+
+
+
+
+// -------------X-------------------------X----------------------X-------------------------X--------------------------X-----
+
+
+
+
+// ---------------------------------------START LESSON MANAGEMENT---------------------------------
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".deleteLesson").forEach(button => {
+        button.addEventListener("click", function () {
+            let lessonId = this.getAttribute("data-id");
+            if (confirm("Are you sure you want to delete this lesson?")) {
+                fetch("deleteLesson.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: "l_id=" + lessonId
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("lessonRow_" + lessonId).remove();
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
+    });
+});
+
+// ---------------------------------------END LESSON MANAGEMENT---------------------------------
+// -------------X-------------------------X----------------------X-------------------------X--------------------------X-----

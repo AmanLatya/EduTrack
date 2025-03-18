@@ -51,6 +51,7 @@ if (!isset($_SESSION['is_stuLogin'])) {
             echo $row;
             if($row == 1){
                 $_SESSION['is_stuLogin'] = true;
+                $_SESSION['Stu_Name'] = true;
                 $_SESSION['stuLoginEmail'] = $stuLoginEmail;
             }
         } else {

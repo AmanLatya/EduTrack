@@ -37,7 +37,8 @@ $result = $connection->query($sql);
                             <td><img src="' . $row['course_img'] . '" alt="Course Image" class="img-thumbnail" style="max-width: 100px; height: auto;"></td>
                             <td>' . $row['course_duration'] . '</td>
                             <td>' . $row['course_price'] . '</td>
-                            <td>' . $row['course_original_price'] . '</td>
+                            <td>' . $row['course_original_price'] . '
+                            </td>
                             <td class="d-flex justify-content-center align-items-center">
                                 <form action="editCourse.php" method="POST">
                                     <input type="hidden" name="id" value=' . $row["course_id"] . '>

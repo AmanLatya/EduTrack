@@ -35,6 +35,7 @@ $("#StudentSignUpEmail").on("blur", function () {
 
 // ---------------------------------Start Student SignUp Code---------------------------------
 $("#SignUpSubmitBtn").click(function () {
+    console("Btn Clicked");
     var name = $("#StudentSignUpName");
     var email = $("#StudentSignUpEmail");
     var gaurdianEmail = $("#GaurdianEmail");

@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
         $sellingprice = $_POST['sellingprice'];
         $courseImage = $_FILES['courseImage']['name'];
         $courseImageTemp = $_FILES['courseImage']['tmp_name'];
-        $imgFolder = '../images/courseImages/'.$courseImage;
+        $imgFolder = '../images/courseImages/' . $courseImage;
         move_uploaded_file($courseImageTemp, $imgFolder);
 
         $sql = "INSERT INTO courses (course_name,course_description, course_author, course_img,course_duration,course_price,course_original_price) VALUES ('$courseName','$courseDescription','$author','$imgFolder','$courseDuration','$sellingprice','$originalPrice')";
@@ -40,9 +40,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
 <title>EDUTRACK - Add Courses</title>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="form-container">
-        <h3 class="text-center mb-4"><i class="fas fa-book"></i> Add New Course</h3>
+        <h3 class="text-center mb-4"><i class="fas fa-book"></i> Add New Course
+
+            <a href="./Courses.php" class="btn btn-primary">
+                <i class="fas fa-times"></i>
+            </a>
+
+        </h3>
         <form method="POST" enctype="multipart/form-data">
-            
+
             <div class="mb-3">
                 <label class="form-label">Course Name</label>
                 <div class="input-group custom-input-group">
@@ -107,14 +113,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
                     <i class="fas fa-plus-circle"></i> Add Course
                 </button>
             </div>
-            
-            <div class="text-center">
-                <a href="./Courses.php" class="btn btn-outline-secondary w-100">
-                    <i class="fas fa-times"></i> Cancel
-                </a>
-            </div>
 
-            <?php echo $msg; ?>
+            <?php 
+            if(isset($msg)){
+                echo $msg; 
+            }
+            ?>
         </form>
     </div>
 </div>

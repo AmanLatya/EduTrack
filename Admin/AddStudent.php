@@ -7,24 +7,27 @@ include '../ConnectDataBase.php';
 
 $msg = ""; // Initialize message variable
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_student'])) {
     if (
         empty($_POST['stuName']) || empty($_POST['stuEmail']) || empty($_POST['gaurdianEmail']) ||
         empty($_POST['stuPass']) || empty($_POST['stuProffesion']) || empty($_POST['stuAddress']) || empty($_POST['stuPhone']) ||
         empty($_FILES['stuProfile']['name'])
     ) {
         $msg = '<div class="alert alert-warning text-center">Fill all details</div>';
+    } else if ($_POST['stuEmail'] === $_POST['gaurdianEmail']) {
+        $msg = '<div class="alert alert-danger text-center">Student email and Guardian email must be different!</div>';
     } else {
         $stuName = $_POST['stuName'];
         $stuEmail = $_POST['stuEmail'];
         $gaurdianEmail = $_POST['gaurdianEmail'];
+
         $stuPass = $_POST['stuPass'];
         $stuProffesion = $_POST['stuProffesion'];
         $stuAddress = $_POST['stuAddress'];
         $stuPhone = $_POST['stuPhone'];
         $stuProfile = $_FILES['stuProfile']['name'];
         $stuProfileTemp = $_FILES['stuProfile']['tmp_name'];
-        $stuImgFolder = '../images/studentImages/'.$stuProfile;
+        $stuImgFolder = '../images/studentImages/' . $stuProfile;
         move_uploaded_file($stuProfileTemp, $stuImgFolder);
 
         $sql = "INSERT INTO student (Stu_Name,Stu_Email,Alter_Email,Stu_Pass,Stu_Proffesion,Stu_Profile,Stu_Address,Stu_Phone) VALUES ('$stuName','$stuEmail','$gaurdianEmail','$stuPass','$stuProffesion','$stuImgFolder','$stuAddress','$stuPhone')";
@@ -41,9 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
 <title>EDUTRACK - Add Courses</title>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="form-container">
-        <h3 class="text-center mb-4"><i class="fas fa-book"></i> Add New Student</h3>
+        <h3 class="text-center mb-4"><i class="fas fa-book"></i> Add New Student
+
+            <a href="./Student.php" class="btn btn-primary">
+                <i class="fas fa-times"></i>
+            </a>
+        </h3>
         <form method="POST" enctype="multipart/form-data">
-            
+
             <div class="mb-3">
                 <label class="form-label">Student Name</label>
                 <div class="input-group custom-input-group">
@@ -103,14 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
                 </div>
             </div>
 
-            <!-- <div class="mb-3">
-                <label class="form-label">Mobile Number</label>
-                <div class="input-group custom-input-group">
-                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                    <input type="number" class="form-control" name="stuPhone" placeholder="Enter Mobile No." required>
-                </div>
-            </div> -->
-
             <div class="mb-3">
                 <label class="form-label">Mobile Number</label>
                 <div class="input-group custom-input-group">
@@ -119,18 +119,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
                 </div>
             </div>
             <div class="mb-3 text-center">
-                <button type="submit" name="add_course" class="btn btn-primary custom-btn-primary">
+                <button type="submit" name="add_student" class="btn btn-primary custom-btn-primary" id="SignUpSubmitBtn">
                     <i class="fas fa-plus-circle"></i> Add Student
                 </button>
             </div>
-            
-            <div class="text-center">
-                <a href="./Courses.php" class="btn btn-outline-secondary w-100">
-                    <i class="fas fa-times"></i> Cancel
-                </a>
-            </div>
 
-            <?php echo $msg; ?>
+            <?php
+            if (!isset($msg)) {
+                echo $msg;
+            }
+            ?>
         </form>
     </div>
 </div>
@@ -149,3 +147,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
 
 <!-- Footer Links -->
 <?php include '../layout/htmlFooterLinks.php'; ?>
+<?php include '../layout/adminFooter.php'; ?>
