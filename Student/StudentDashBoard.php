@@ -1,7 +1,5 @@
-<!-- Html Head Links -->
-<?php
-include('../layout/htmlHeadLinks.php')
-?>
+<!-- Include the Student Data From the database -->
+<?php include './StudentData.php' ?>
 
 <div class="container-fluid">
     <div class="row">
@@ -13,17 +11,17 @@ include('../layout/htmlHeadLinks.php')
             <div class="header-bg p-4 rounded mb-4">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
                     <div>
-                        <h1 class="fs-3 fw-bold text-white">Hello, Robert Fox</h1>
+                        <h1 class="fs-3 fw-bold text-white">Hello, <?php echo $name ?></h1>
                         <p class="text-purple-200">Welcome back to your dashboard</p>
                     </div>
                     <div class="d-flex align-items-center mt-3 mt-md-0">
                         <input class="form-control me-3" placeholder="Search your course" type="text">
                         <i class="fas fa-bell text-purple-200 me-3"></i>
                         <div class="d-flex align-items-center">
-                            <img src="images/Userimag.png" alt="User" class="rounded-circle me-2" width="40" height="40">
+                            <img src="<?php echo $image ?>" alt="User" class="rounded-circle me-2" width="40" height="40">
                             <div>
-                                <p class="fw-bold text-white mb-0">Robert Fox</p>
-                                <p class="text-sm text-purple-200 mb-0">Student ID: 0013</p>
+                                <p class="fw-bold text-white mb-0"><?php echo $name ?></p>
+                                <p class="text-sm text-purple-200 mb-0">Student ID: <?php echo $id ?></p>
                             </div>
                         </div>
                     </div>

@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_student'])) {
             </div>
 
             <?php
-            if (!isset($msg)) {
+            if (isset($msg)) {
                 echo $msg;
             }
             ?>

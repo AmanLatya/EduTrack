@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_course'])) {
                     <span class="input-group-text"><i class="fas fa-image"></i></span>
                     <input type="file" class="form-control" name="courseImage" accept="image/*" required onchange="previewImage(event)">
                 </div>
-                <div class="preview-container">
+                <div class="preview-container w-50">
                     <img id="preview" src="#" alt="Preview Image">
                 </div>
             </div>

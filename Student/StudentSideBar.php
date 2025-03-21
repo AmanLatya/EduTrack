@@ -1,22 +1,29 @@
+<?php 
+if(!isset($_SESSION['is_stuLogin'])){
+    echo "<script> location.href='../'; </script>";
+}
+
+?>
+
 <div class="col-md-2 bg-white p-4">
     <div class="d-flex align-items-center mb-4">
-        <span class="fs-4 fw-bold text-dark"><i class="fas fa-graduation-cap"></i> <a href="/EduTrack/" class="text-decoration-none text-dark"> EduTrack</a></span>
+        <span class="fs-4 fw-bold text-dark"><i class="fas fa-graduation-cap"></i> <a href="../index.php" class="text-decoration-none text-dark"> EduTrack</a></span>
     </div>
     <ul class="list-unstyled">
         <li class="mb-3">
-            <a class="d-flex align-items-center text-decoration-none text-purple-600" href="#">
+            <a class="d-flex align-items-center text-decoration-none text-purple-600" href="./StudentDashBoard.php">
                 <i class="fas fa-home me-3"></i>
                 Home
             </a>
         </li>
         <li class="mb-3">
-            <a class="d-flex align-items-center text-decoration-none text-secondary" href="../Student/StudentProfile.php">
+            <a class="d-flex align-items-center text-decoration-none text-secondary" href="./StudentProfile.php">
                 <i class="fas fa-user me-3"></i>
                 Profile
             </a>
         </li>
         <li class="mb-3">
-            <a class="d-flex align-items-center text-decoration-none text-secondary" href="enrolled_courses">
+            <a class="d-flex align-items-center text-decoration-none text-secondary" href="#">
                 <i class="fas fa-book me-3"></i>
                 Enrolled Courses
             </a>

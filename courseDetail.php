@@ -1,12 +1,14 @@
 <!-- Html Head Links -->
 <?php
-include('./layout/htmlHeadLinks.php')
+
+include('./layout/htmlHeadLinks.php');
+include('./layout/header.php');
+
+if(isset($_SESSION['is_stuLogin'])){
+    echo 1;
+}
 ?>
 
-<!-- Start Nav Bar -->
-<?php
-include('./layout/header.php')
-?>
 <!-- End Nav Bar -->
 
 <div class="container-fluid">
@@ -28,7 +30,7 @@ include('./layout/header.php')
     <div class="p-4">
         <div class="card shadow">
             <div class="banner">
-                <img alt="Web Development Course Banner" src="https://www.simplilearn.com/ice9/free_resources_article_thumb/is_web_development_good_career.jpg"/>
+                <img alt="Web Development Course Banner" src="https://www.simplilearn.com/ice9/free_resources_article_thumb/is_web_development_good_career.jpg" />
                 <div class="banner-overlay">
                     <h2 class="text-white">Web Development Course</h2>
                 </div>
@@ -101,7 +103,7 @@ include('./layout/header.php')
                         <p class="text-muted">
                             Get lifetime access to this course, including all future updates.
                         </p>
-                        <button class="btn btn-primary btn-lg">Buy Now</button>
+                        <button class="btn btn-primary btn-lg" id="buyCourse">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -115,4 +117,3 @@ include('./layout/header.php')
 <!-- End Footer Courses -->
 <!-- Html Footer Links -->
 <?php include('./layout/htmlFooterLinks.php') ?>
-

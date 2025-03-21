@@ -35,7 +35,7 @@ $("#StudentSignUpEmail").on("blur", function () {
 
 // ---------------------------------Start Student SignUp Code---------------------------------
 $("#SignUpSubmitBtn").click(function () {
-    console("Btn Clicked");
+    // console("Btn Clicked");
     var name = $("#StudentSignUpName");
     var email = $("#StudentSignUpEmail");
     var gaurdianEmail = $("#GaurdianEmail");
@@ -132,9 +132,16 @@ $("#SignUpSubmitBtn").click(function () {
                 AltEmail: gaurdianEmail.val(),
                 stuPass: password.val()
             },
-            // success: function(response) {
-            //     console.log("Server Response:", response);
-            // }
+            success: function (response) {
+                if (response) {
+                    setTimeout(function () {
+                        location.reload(); // Reload the page after 2 seconds
+                    }, 2000);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error:", error);
+            }
         });
     }
 
@@ -162,7 +169,7 @@ $("#StudentLoginBtn").click(function () {
     let stuLoginPass = $('#StudentLoginPassword').val();
 
     let StudentLoginFailedMsg = $('#StudentLoginFailedMsg');
-
+    // let currentPage = window.location.href;
     $.ajax({
         url: "Student/Authentication.php",
         method: "POST",
@@ -191,8 +198,8 @@ $("#StudentLoginBtn").click(function () {
                 setTimeout(function () {
                     // Remove loading screen and navigate to dashboard
                     $("#loading-screen").fadeOut("slow", function () {
-                        window.location.href = "/EduTrack/"; // Change URL as needed
-                        // window.location.href = "/EduTrack/Dashboards/StudentDashBoard.php"; // Change URL as needed
+                        // window.location.href = currentPage; // Redirect to the same page
+                        location.reload(); // Reload the page after redirection
                     });
                 }, 550);
             } else {
@@ -209,3 +216,24 @@ $("#StudentLoginBtn").click(function () {
 
 // ------x----------------x--------------------x--------------------x-------------------x------------------
 
+// ---------------------------------Start Buy Course Code--------------------------------
+$("#buyCourse").click(function () {
+    // e.preventDefault(); // Prevent default form submission
+
+    $.ajax({
+        url: "courseDetail.php",
+        method: "POST",
+        success: function (response) {
+            // console.log(response);
+            if (response == 1) {
+                window.location.href = "./Sales/buyCourse.php";
+            } else {
+                $("#buyCourse").attr({
+                    "data-bs-toggle": "modal",
+                    "data-bs-target": "#StudentLoginModal"
+                }).click();
+            }
+        }
+    });
+});
+// ---------------------------------End Buy Course Code--------------------------------

@@ -6,28 +6,6 @@ if (!isset($_SESSION)) {
   session_start();
 }
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $email = $_POST['Stu_Email'];
-  $password = $_POST['Stu_Pass'];
-
-  // Query to check user credentials
-  $sql = "SELECT Stu_id, Stu_Name FROM student WHERE Stu_Email = ? AND Stu_Pass = ?";
-  $result  = $connection->query($sql);
-  // $row = $result->fetch_assoc();
-
-  if ($row = $result->fetch_assoc()) {
-    $_SESSION['is_stuLogin'] = true;
-    $_SESSION['Stu_Name'] = true;
-    // $_SESSION['Stu_id'] = $row['Stu_id'];
-    // $_SESSION['Stu_Name'] = $row['Stu_Name']; // Store the name in session
-
-    header("Location: /EduTrack/Student/StudentDashBoard.php"); // Redirect to dashboard
-    exit();
-  } else {
-    echo "Invalid credentials!";
-  }
-}
 ?>
 
 <header class="sticky-top">
@@ -58,19 +36,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </a>
               </li>
             ';
-          } else if (isset($_SESSION['is_stuLogin']) && isset($_SESSION['Stu_Name'])) {
-            echo '
+          } else if (isset($_SESSION['is_stuLogin']) && isset($_SESSION['stuLoginEmail'])) {
+            $sql = "SELECT * FROM student WHERE Stu_Email = '{$_SESSION['stuLoginEmail']}'";
+            $result = $connection->query($sql);
+            if ($result->num_rows > 0) {
+              $row = $result->fetch_assoc();
+              echo '
               <li class="nav-item fs-5 px-2">
-                <a class="nav-link" href="/EduTrack/Student/StudentDashBoard.php">
-                  <i class="fas fa-user"></i> ' . $_SESSION['Stu_Name'] . '
+                <a class="nav-link" href="./Student/StudentDashBoard.php">
+                <i class="fas fa-user"></i> ' . $row['Stu_Name'] . '
                 </a>
               </li>
               <li class="nav-item fs-5 p-2">
                 <a class="btn btn-info px-3 py-1 text-dark fw-bold" href="./Logout.php">
                   <i class="fas fa-sign-in-alt"></i> Logout
-                </a>
-              </li>
-            ';
+                  </a>
+                  </li>
+                  ';
+            }
           } else {
             echo '
               <li class="nav-item fs-5 px-2">

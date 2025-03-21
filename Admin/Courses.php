@@ -17,7 +17,7 @@ $result = $connection->query($sql);
                 <table class="table table-bordered align-middle">
                     <thead class="table-light">
                         <tr>
-                            <!-- <th>Course ID</th> -->
+                            <th>Course ID</th>
                             <th>Name</th>
                             <th>Description</th>
                             <th>Author</th>
@@ -30,7 +30,8 @@ $result = $connection->query($sql);
                     </thead>
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()) {
-                            echo '<tr>
+                            echo '<tr id="courseRow_ '.$row['course_id'].'">
+                            <td><strong>' . $row['course_id'] . '</strong></td>
                             <td><strong>' . $row['course_name'] . '</strong></td>
                             <td>' . $row['course_description'] . '</td>
                             <td>' . $row['course_author'] . '</td>
@@ -46,29 +47,15 @@ $result = $connection->query($sql);
                                         <i class="fas fa-pen m-1"></i>
                                     </button>
                                 </form>
-                                <form method="POST">
-                                    <input type="hidden" name="id" value=' . $row["course_id"] . ' >
-                                    <button class="btn btn-secondary btn-sm m-1" name="delete" value="delete">
-                                        <i class="fas fa-trash m-1"></i>
-                                    </button>
-                                </form>
+                                <button class="btn btn-secondary btn-sm m-1 " id="deleteCourse" data-id="' . $row["course_id"] .'">
+                                    <i class="fas fa-trash m-1"></i>
+                                </button>
                             </td>
                         </tr>';
                         } ?>
                     </tbody>
                 </table>
-            <?php }
-
-            // Delete Course-------------------------------
-            if (isset($_REQUEST['delete'])) {
-                $sql = "DELETE FROM courses WHERE course_id = {$_REQUEST['id']}";
-                if ($connection->query($sql) == TRUE) {
-                    echo '<meta http-equiv="refresh" content="0; URL=?deleted"/>';
-                } else {
-                    echo 'Unable to delete course';
-                }
-            }
-            ?>
+            <?php } ?>
         </div>
     </div>
 </div>

@@ -4,11 +4,7 @@
   <!-- Pooper Js -->
   <script src="/EduTrack/js/popper.min.js?v=12345"></script>
 
-  <!-- JQuery -->
-  <script src="/EduTrack/js/jQuery.min.js?v=12345"></script>
-
   <!--Student Ajax Call Request -->
-  <!-- <script src="/EduTrack/js/AjaxRequest.js?v=12345"></script> -->
   <script src="/EduTrack/js/AjaxRequest.js"></script>
   <!--Admin Ajax Call Request -->
   <script src="/EduTrack/js/adminAjaxRequest.js"></script>

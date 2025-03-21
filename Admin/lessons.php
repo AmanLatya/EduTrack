@@ -5,6 +5,7 @@ if (!isset($_SESSION)) {
 
 include './AdminHeader.php';
 include '../ConnectDataBase.php';
+$msg = "";
 
 ?>
 <title>EDUTRACK - About Course</title>
@@ -18,75 +19,67 @@ include '../ConnectDataBase.php';
     </form>
 
     <?php
-    //----------------- Select Course Id from Courses Table------------------------
-    $sql = "SELECT course_id FROM courses";
-    $result = $connection->query($sql);
-    while ($row = $result->fetch_assoc()) {
-        if (isset($_REQUEST['checkId']) && $_REQUEST['checkId'] == $row['course_id']) {
-            $sql = "SELECT * FROM courses WHERE course_id = {$_REQUEST['checkId']} ";
-            $result = $connection->query($sql);
+    if (isset($_REQUEST['checkId'])) {
+        $courseId = intval($_REQUEST['checkId']);
+        $sql = "SELECT * FROM courses WHERE course_id = $courseId";
+        $result = $connection->query($sql);
+
+        if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if ($row['course_id'] == $_REQUEST['checkId']) {
-                $_SESSION['courseId'] = $row['course_id'];
-                $_SESSION['courseName'] = $row['course_name'];
+            $_SESSION['courseId'] = $row['course_id'];
+            $_SESSION['courseName'] = $row['course_name'];
     ?>
-                <div class="card mt-3">
-                    <h3 class="card-header bg-dark text-white">
-                        Course Id:
-                        <?php if (isset($row['course_id'])) {
-                            echo $row['course_id'];
-                        } ?>
-                        Course Name:
-                        <?php if (isset($row['course_id'])) {
-                            echo $row['course_name'];
-                        } ?>
-                    </h3>
+            <div class="card mt-3">
+                <h3 class="card-header bg-dark text-white">
+                    Course Id: <?php echo $row['course_id']; ?>
+                    Course Name: <?php echo $row['course_name']; ?>
+                </h3>
 
-                    <table class="table table-bordered align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>S.No</th>
-                                <th>Topic Name</th>
-                                <th>Topic Description</th>
-                                <th>Lecture Link</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="lessonTable">
-                            <?php
-                            $sql = "SELECT * FROM lesson WHERE course_id = {$_REQUEST['checkId']}";
-                            $result = $connection->query($sql);
-                            while ($row = $result->fetch_assoc()) {
-                                echo '
-                                <tr id="lessonRow_' . $row['lesson_id'] . '">
-                                    <td><strong>' . $row['lesson_num'] . '</strong></td>
-                                    <td>' . $row['lesson_name'] . '</td>
-                                    <td>' . $row['lesson_desc'] . '</td>
-                                    <td>
-                                        <a href="' . $row['lesson_link'] . '" target = "_blank">Link</a>
-                                    </td>
-                                    <td class="d-flex justify-content-center align-items-center">
-                                    
-                                        <form action="editLesson.php" method="POST">
-                                            <input type="hidden" name="l_id" value="' . $row["lesson_id"] . '">
-                                            <button class="btn btn-info btn-sm m-1" name="editLesson" value="editLesson">
-                                                <i class="fas fa-pen m-1"></i>
-                                            </button>
-                                        </form>
-
-                                        <button class="btn btn-secondary btn-sm m-1 deleteLesson" data-id="' . $row["lesson_id"] . '">
-                                            <i class="fas fa-trash m-1"></i>
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S.No</th>
+                            <th>Topic Name</th>
+                            <th>Topic Description</th>
+                            <th>Lecture Link</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lessonTable">
+                        <?php
+                        $sql = "SELECT * FROM lesson WHERE course_id = $courseId";
+                        $result = $connection->query($sql);
+                        while ($row = $result->fetch_assoc()) {
+                            echo '
+                            <tr id="lessonRow_' . $row['lesson_id'] . '">
+                                <td><strong>' . $row['lesson_num'] . '</strong></td>
+                                <td>' . $row['lesson_name'] . '</td>
+                                <td>' . $row['lesson_desc'] . '</td>
+                                <td>
+                                    <a href="' . $row['lesson_link'] . '" target="_blank">Link</a>
+                                </td>
+                                <td class="d-flex justify-content-center align-items-center">
+                                    <form action="editLesson.php" method="POST">
+                                        <input type="hidden" name="l_id" value="' . $row["lesson_id"] . '">
+                                        <button class="btn btn-info btn-sm m-1" name="editLesson" value="editLesson">
+                                            <i class="fas fa-pen m-1"></i>
                                         </button>
-                                    </td>
-                                </tr>
-                                ';
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+                                    </form>
+
+                                    <button class="btn btn-secondary btn-sm m-1 deleteLesson" data-id="' . $row["lesson_id"] . '">
+                                        <i class="fas fa-trash m-1"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            ';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
     <?php
-            }
+        } else {
+            echo '<div class="alert alert-warning text-center">Course Not Found</div>';
         }
     }
     ?>

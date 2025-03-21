@@ -18,7 +18,7 @@ $result = $connection->query($sql);
                     <thead class="table-light">
                         <tr>
                             <!-- <th>Course ID</th> -->
-                            <th>Enrollment Number</th>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Personal Email</th>
                             <th>Gaurdian Email</th>
@@ -31,7 +31,7 @@ $result = $connection->query($sql);
                     </thead>
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()) {
-                            echo '<tr>
+                            echo '<tr id="studentRow_'.$row['Stu_id'].'">
                             <td><strong>' . $row['Stu_id'] . '</strong></td>
                             <td>' . $row['Stu_Name'] . '</td>
                             <td>' . $row['Stu_Email'] . '</td>
@@ -48,28 +48,15 @@ $result = $connection->query($sql);
                                       <i class="fas fa-pen m-1"></i>
                                  </button>
                                 </form>
-                                <form method="POST">
-                                    <input type="hidden" name="id" value=' . $row["Stu_id"] . ' >
-                                    <button class="btn btn-secondary btn-sm m-1" name="delete" value="delete">
-                                        <i class="fas fa-trash m-1"></i>
-                                    </button>
-                                </form>
+                                <button class="btn btn-secondary btn-sm m-1 deleteStudent" data-id="' . $row["Stu_id"] . '">
+                                    <i class="fas fa-trash m-1"></i>
+                                </button>
                             </td>
                         </tr>';
                         } ?>
                     </tbody>
                 </table>
-            <?php }
-            // --------------------------------Delete Student-------------------------------
-            if (isset($_REQUEST['delete'])) {
-                $sql = "DELETE FROM student WHERE Stu_id = {$_REQUEST['id']}";
-                if ($connection->query($sql) == TRUE) {
-                    echo '<meta http-equiv="refresh" content="0; URL=?deleted"/>';
-                } else {
-                    echo 'Unable to delete course';
-                }
-            }
-            ?>
+            <?php } ?>
         </div>
     </div>
 </div>

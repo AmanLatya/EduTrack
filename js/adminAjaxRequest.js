@@ -157,29 +157,93 @@ $('#AdminLoginBtn').click(function () {
 
 
 
-// ---------------------------------------START LESSON MANAGEMENT---------------------------------
+// ---------------------------------------START STUDENT MANAGEMENT---------------------------------
+// This is the code for delete student data from the student table with the help of Student.php file
+$(".deleteStudent").on("click", function () {
+    alert("Are you sure?");
+    let StuId = $(this).data("id");
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".deleteLesson").forEach(button => {
-        button.addEventListener("click", function () {
-            let lessonId = this.getAttribute("data-id");
-            if (confirm("Are you sure you want to delete this lesson?")) {
-                fetch("deleteLesson.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "l_id=" + lessonId
-                })
-                .then(response => response.json())
-                .then(data => {
+    if (confirm("Are you taking responsibility for this deletion process of the student data?")) {
+        $.ajax({
+            url: "delete.php",
+            type: "POST",
+            data: { Stu_id: StuId },
+            dataType: "json",
+            success: function (data) {
+                if (data) {
+                    $("#studentRow_" + StuId).remove();
+                    setTimeout(function () {
+                        location.reload(); // Reload the page after 2 seconds
+                    }, 800);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+});
+
+
+// ---------------------------------------END STUDENT MANAGEMENT---------------------------------
+
+
+// -------------X-------------------------X----------------------X-------------------------X--------------------------X-----
+// ---------------------------------------START COURSE MANAGEMENT---------------------------------
+// This is the code for delete course data from the course table with the help of Courses.php file
+$("#deleteCourse").on("click", function () {
+    alert("Are You sure ?");
+    let CourseId = $(this).data("id");
+    if (confirm("Are you take the responsiblity for this deletion process of the Course Data ?")) {
+        $.ajax({
+            url: "delete.php",
+            type: "POST",
+            data: { course_id: CourseId },
+            dataType: "json",
+            success: function (data) {
+                if (data) {
+                    $("#courseRow_" + CourseId).remove();
+                    $("#lessonRow_" + CourseId).remove();
+                    setTimeout(function () {
+                        location.reload(); // Reload the page after 2 seconds
+                    }, 800);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+});
+
+// ---------------------------------------END COURSE MANAGEMENT---------------------------------
+
+// -------------X-------------------------X----------------------X-------------------------X--------------------------X-----
+
+// ---------------------------------------START LESSON MANAGEMENT---------------------------------
+// This is the code for delete lesson from the lesson table with the help of lesson.php file
+$(document).ready(function () {
+    $(".deleteLesson").on("click", function () {
+        alert("Are You sure ?");
+        let lessonId = $(this).data("id");
+        if (confirm("Are you sure you want to delete this lesson?")) {
+            $.ajax({
+                url: "delete.php",
+                type: "POST",
+                data: { l_id: lessonId },
+                dataType: "json",
+                success: function (data) {
                     if (data.success) {
-                        document.getElementById("lessonRow_" + lessonId).remove();
+                        $("#lessonRow_" + lessonId).remove();
                     } else {
                         alert("Error: " + data.message);
                     }
-                })
-                .catch(error => console.error("Error:", error));
-            }
-        });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+        }
     });
 });
 
